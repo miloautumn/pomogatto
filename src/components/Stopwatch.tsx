@@ -29,6 +29,21 @@ export default function Stopwatch() {
         setTimer(0);
     }
 
+    function formatTimer() {
+        const hoursElapsed = Math.floor(timer / 120).toLocaleString(undefined, {
+            minimumIntegerDigits: 2,
+        });
+        const minutesElapsed = Math.floor(timer / 60).toLocaleString(
+            undefined,
+            { minimumIntegerDigits: 2 },
+        );
+        const secondsElapsed = (timer % 60).toLocaleString(undefined, {
+            minimumIntegerDigits: 2,
+        });
+
+        return `${hoursElapsed}:${minutesElapsed}:${secondsElapsed}`;
+    }
+
     function startButtonDisabled() {
         const startButton = document.getElementById('start-button');
         if (startButton?.hasAttribute('disabled')) {
@@ -50,7 +65,7 @@ export default function Stopwatch() {
         <>
             <h2>stopwatch</h2>
             <div className="card">
-                <p>time elapsed is: {timer}</p>
+                <p>{formatTimer()}</p>
                 <button
                     onClick={startTimer}
                     id="start-button"

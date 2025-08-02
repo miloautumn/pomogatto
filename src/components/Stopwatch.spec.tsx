@@ -20,7 +20,7 @@ describe('Stopwatch', () => {
     test('starts stopwatch', async () => {
         await user.click(startButton);
         vi.advanceTimersByTime(1000);
-        expect(await screen.findByText('time elapsed is: 1')).toBeDefined();
+        expect(await screen.findByText('00:00:01')).toBeDefined();
     });
 
     test('cannot double click start button', async () => {
@@ -33,16 +33,22 @@ describe('Stopwatch', () => {
         await user.click(startButton);
         vi.advanceTimersByTime(2000);
         await user.click(stopButton);
-        expect(await screen.findByText('time elapsed is: 2')).toBeDefined();
+        expect(await screen.findByText('00:00:02')).toBeDefined();
         expect(startButton).not.toBeDisabled();
     });
 
     test('reset stopwatch', async () => {
         await user.click(startButton);
         vi.advanceTimersByTime(1000);
-        expect(await screen.findByText('time elapsed is: 1')).toBeDefined();
+        expect(await screen.findByText('00:00:01')).toBeDefined();
 
         await user.click(resetButton);
-        expect(await screen.findByText('time elapsed is: 0')).toBeDefined();
+        expect(await screen.findByText('00:00:00')).toBeDefined();
+    });
+
+    test('displays minutes after 60 or more seconds have elapsed', async () => {
+        await user.click(startButton);
+        vi.advanceTimersByTime(61 * 1000); // advance timer by 61 seconds
+        expect(await screen.findByText('00:01:01')).toBeDefined();
     });
 });

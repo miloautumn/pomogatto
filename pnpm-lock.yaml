@@ -7,6 +7,9 @@ settings:
 importers:
     .:
         dependencies:
+            intl:
+                specifier: ^1.2.5
+                version: 1.2.5
             react:
                 specifier: ^19.1.0
                 version: 19.1.0
@@ -1816,6 +1819,12 @@ packages:
                 integrity: sha512-EdDDZu4A2OyIK7Lr/2zG+w5jmbuk1DVBnEwREQvBzspBJkCEbRa8GxU1lghYcaGJCnRWibjDXlq779X1/y5xwg==,
             }
         engines: { node: '>=8' }
+
+    intl@1.2.5:
+        resolution:
+            {
+                integrity: sha512-rK0KcPHeBFBcqsErKSpvZnrOmWOj+EmDkyJ57e90YWaQNqbcivcqmKDlHEeNprDWOsKzPsh1BfSpPQdDvclHVw==,
+            }
 
     is-extglob@2.1.1:
         resolution:
@@ -3822,6 +3831,8 @@ snapshots:
     imurmurhash@0.1.4: {}
 
     indent-string@4.0.0: {}
+
+    intl@1.2.5: {}
 
     is-extglob@2.1.1: {}
 
