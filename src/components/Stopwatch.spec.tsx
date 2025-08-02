@@ -34,6 +34,7 @@ describe('Stopwatch', () => {
         vi.advanceTimersByTime(2000);
         await user.click(stopButton);
         expect(await screen.findByText('time elapsed is: 2')).toBeDefined();
+        expect(startButton).not.toBeDisabled();
     });
 
     test('reset stopwatch', async () => {
