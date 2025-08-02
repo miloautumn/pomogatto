@@ -1,12 +1,8 @@
-# React + TypeScript + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Pomogatto
 
 ## Features
 
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔒 TypeScript by default
+- Stopwatch: start, stop and reset an ever-increasing timer
 
 ## Getting Started
 
@@ -23,7 +19,7 @@ pnpm install
 Start the development server with HMR:
 
 ```bash
-pnpm run dev
+pnpm dev
 ```
 
 Your application will be available at `http://localhost:5173`.
@@ -33,5 +29,5 @@ Your application will be available at `http://localhost:5173`.
 Create a production build:
 
 ```bash
-pnpm run build
+pnpm build
 ```
