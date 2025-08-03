@@ -27,7 +27,7 @@ describe('Stopwatch', () => {
             await user.click(stopButton);
         });
 
-        expect(screen.getByText('00:00:01:000')).toBeDefined();
+        expect(screen.getByText('00:00:01')).toBeDefined();
     });
 
     test('cannot double click start button', async () => {
@@ -46,7 +46,7 @@ describe('Stopwatch', () => {
             await user.click(stopButton);
         });
 
-        expect(screen.getByText('00:00:02:000')).toBeDefined();
+        expect(screen.getByText('00:00:02')).toBeDefined();
         expect(startButton).not.toBeDisabled();
     });
 
@@ -56,12 +56,12 @@ describe('Stopwatch', () => {
             vi.advanceTimersByTime(1000);
         });
 
-        expect(screen.getByText('00:00:01:000')).toBeDefined();
+        expect(screen.getByText('00:00:01')).toBeDefined();
 
         await act(async () => {
             await user.click(resetButton);
         });
-        expect(screen.getByText('00:00:00:000')).toBeDefined();
+        expect(screen.getByText('00:00:00')).toBeDefined();
     });
 
     test('displays minutes after 60 or more seconds have elapsed', async () => {
@@ -69,6 +69,6 @@ describe('Stopwatch', () => {
             await user.click(startButton);
             vi.advanceTimersByTime(61 * 1000); // advance timer by 61 seconds
         });
-        expect(screen.getByText('00:01:01:000')).toBeDefined();
+        expect(screen.getByText('00:01:01')).toBeDefined();
     });
 });
