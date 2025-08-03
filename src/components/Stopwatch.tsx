@@ -11,7 +11,7 @@ export default function Stopwatch() {
             // start button is not disabled
             const id = setInterval(() => {
                 setTimer((timer) => timer + 1);
-            }, 1000);
+            }, 1);
             setIntervalId(id);
             toggleStartButtonUsability();
         }
@@ -30,18 +30,16 @@ export default function Stopwatch() {
     }
 
     function formatTimer() {
-        const hoursElapsed = Math.floor(timer / 120).toLocaleString(undefined, {
-            minimumIntegerDigits: 2,
-        });
-        const minutesElapsed = Math.floor(timer / 60).toLocaleString(
-            undefined,
-            { minimumIntegerDigits: 2 },
-        );
-        const secondsElapsed = (timer % 60).toLocaleString(undefined, {
-            minimumIntegerDigits: 2,
-        });
+        let ms = timer;
 
-        return `${hoursElapsed}:${minutesElapsed}:${secondsElapsed}`;
+        const hours = Math.floor(ms / 3600000);
+        ms %= 3600000;
+        const minutes = Math.floor(ms / 60000);
+        ms %= 60000;
+        const seconds = Math.floor(ms / 1000);
+        const milliseconds = ms % 1000;
+
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}:${milliseconds.toString().padStart(3, '0')}`;
     }
 
     function startButtonDisabled() {
