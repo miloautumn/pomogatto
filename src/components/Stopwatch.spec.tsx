@@ -62,12 +62,14 @@ describe('Stopwatch', () => {
             await user.click(resetButton);
         });
         expect(screen.getByText('00:00:00')).toBeDefined();
+        await user.click(stopButton);
     });
 
     test('displays minutes after 60 or more seconds have elapsed', async () => {
         await act(async () => {
             await user.click(startButton);
             vi.advanceTimersByTime(61 * 1000); // advance timer by 61 seconds
+            await user.click(stopButton);
         });
         expect(screen.getByText('00:01:01')).toBeDefined();
     });
