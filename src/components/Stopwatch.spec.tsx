@@ -5,9 +5,6 @@ import userEvent, { type UserEvent } from '@testing-library/user-event';
 
 describe('Stopwatch', () => {
     let user: UserEvent;
-    let startButton: HTMLElement;
-    let stopButton: HTMLElement;
-    let resetButton: HTMLElement;
 
     beforeEach(() => {
         act(() => {
@@ -15,62 +12,58 @@ describe('Stopwatch', () => {
         });
 
         user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
-        startButton = screen.getByTestId('start-button');
-        stopButton = screen.getByTestId('stop-button');
-        resetButton = screen.getByTestId('reset-button');
     });
 
     test('starts stopwatch', async () => {
+        const startPauseButton = screen.getByTestId('start-pause-button');
         await act(async () => {
-            await user.click(startButton);
+            await user.click(startPauseButton);
             vi.advanceTimersByTime(1000);
-            await user.click(stopButton);
         });
 
         expect(screen.getByText('00:00:01')).toBeDefined();
-    });
-
-    test('cannot double click start button', async () => {
+        expect(startPauseButton.textContent).toBe('pause');
         await act(async () => {
-            await user.click(startButton);
-            vi.advanceTimersByTime(1000);
+            await user.click(startPauseButton);
         });
-        expect(startButton).toBeDisabled();
-        await user.click(stopButton);
     });
 
-    test('stops stopwatch', async () => {
+    test('pauses stopwatch', async () => {
+        const startPauseButton = screen.getByTestId('start-pause-button');
         await act(async () => {
-            await user.click(startButton);
+            await user.click(startPauseButton);
             vi.advanceTimersByTime(2000);
-            await user.click(stopButton);
+            await user.click(startPauseButton);
         });
 
         expect(screen.getByText('00:00:02')).toBeDefined();
-        expect(startButton).not.toBeDisabled();
+        expect(startPauseButton.textContent).toBe('start');
     });
 
     test('reset stopwatch', async () => {
+        const startPauseButton = screen.getByTestId('start-pause-button');
+        const resetButton = screen.getByTestId('reset-button');
         await act(async () => {
-            await user.click(startButton);
+            await user.click(startPauseButton);
             vi.advanceTimersByTime(1000);
         });
 
+        expect(startPauseButton.textContent).toBe('pause');
         expect(screen.getByText('00:00:01')).toBeDefined();
 
         await act(async () => {
             await user.click(resetButton);
         });
         expect(screen.getByText('00:00:00')).toBeDefined();
-        await user.click(stopButton);
     });
 
     test('displays minutes after 60 or more seconds have elapsed', async () => {
+        const startPauseButton = screen.getByTestId('start-pause-button');
         await act(async () => {
-            await user.click(startButton);
+            await user.click(startPauseButton);
             vi.advanceTimersByTime(61 * 1000); // advance timer by 61 seconds
-            await user.click(stopButton);
         });
         expect(screen.getByText('00:01:01')).toBeDefined();
+        expect(startPauseButton.textContent).toBe('pause');
     });
 });
